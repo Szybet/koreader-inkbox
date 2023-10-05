@@ -1,0 +1,13 @@
+{
+  "app": {
+    "Author": "Szybet / koreader",
+    "AuthorContact": "https://github.com/Szybet/koreader-inkbox / https://github.com/koreader/koreader",
+    "Enabled": true,
+    "ExecPath": "/app-bin/koreader/koreader.sh",
+    "IconPath": "/app-bin/koreader/resources/koreader.png",
+    "Name": "koreader",
+    "SupportedDevices": [ "all" ],
+    "RequiredFeatures": [ 3, 4, 7, 8 ] ,
+    "Version": "2023.08 Lavender"
+  }
+}

@@ -1,0 +1,31 @@
+{
+    "base_url" : "http://services.org:9999/restapi/",
+    "name" : "api",
+    "methods" : {
+        "get_info" : {
+            "path" : "/show",
+            "method" : "GET",
+            "optional_params" : [
+                "user",
+                "border"
+            ],
+        },
+        "get_user_info" : {
+            "path" : "/show",
+            "method" : "GET",
+            "required_params" : [
+                "user"
+            ],
+            "optional_params" : [
+                "border"
+            ],
+            "required_payload" : true,
+            "expected_status" : [ 100, 200 ]
+        },
+        "action1" : {
+            "path" : "/doit?action=action1",
+            "method" : "GET",
+            "unattended_params" : true
+        }
+    }
+}

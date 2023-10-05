@@ -1,0 +1,24 @@
+#!/usr/bin/lua
+--
+-- lua-Spore : <http://fperrad.github.com/lua-Spore>
+--
+
+if #arg ~= 1 then
+    print 'Usage: discovery2spore url'
+    os.exit(0)
+end
+
+local slurp = require 'Spore.Protocols'.slurp
+local convert = require 'Spore.GoogleDiscovery'.convert
+local decode = require 'json'.decode
+local encode = require 'json'.encode
+
+local content = slurp(arg[1])
+print(encode(convert(decode(content))))
+
+--
+-- Copyright (c) 2011 Francois Perrad
+--
+-- This program is licensed under the terms of the MIT/X11 license,
+-- like Lua itself.
+--

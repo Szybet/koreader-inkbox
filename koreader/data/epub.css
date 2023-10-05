@@ -1,0 +1,245 @@
+body {
+    text-indent: 0;
+    margin: 0;
+    text-align: justify;
+}
+
+head, script {
+    display: none;
+}
+
+/* EPUB container of each individual HTML file */
+DocFragment {
+    page-break-before: always;
+}
+/* Non-linear fragments (hideable) */
+DocFragment[NonLinear] {
+    -cr-hint: non-linear;
+}
+section[type=footnotes] {
+    -cr-hint: non-linear;
+}
+aside[type=footnote] {
+    -cr-hint: non-linear-combining;
+}
+
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0.7em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    text-indent: 0;
+    hyphens: none;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+}
+/* Don't break page on headings in EPUBs: publishers may not expect it,
+ * as most EPUB renderers only break page on a new DocFragment. */
+h1 {
+    -cr-only-if: -epub-document; /* only if NOT EPUB document */
+        page-break-before: always;
+}
+h2, h3 {
+    -cr-only-if: legacy -epub-document;
+        page-break-before: always;
+}
+h1 { font-size: 150%; }
+h2 { font-size: 140%; }
+h3 { font-size: 130%; }
+h4 { font-size: 120%; }
+h5 { font-size: 110%; }
+
+/* Block elements */
+p {
+    text-indent: 1.2em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+blockquote {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: 2em;
+    margin-right: 1em;
+}
+blockquote:dir(rtl) {
+    margin-left: 1em;
+    margin-right: 2em;
+}
+hr {
+    border: 1px solid #808080;
+    margin: 0.5em auto;
+}
+center {
+    text-align: center;
+}
+
+/* Lists */
+ul {
+    list-style-type: disc;
+    margin-left: 1em;
+}
+ol {
+    list-style-type: decimal;
+    margin-left: 1em;
+}
+ul:dir(rtl), ol:dir(rtl) {
+    margin-left: 0;
+    margin-right: 1em;
+}
+li {
+    display: list-item;
+    text-indent: 0;
+}
+
+/* Definitions */
+dl {
+    margin-left: 0;
+}
+dt {
+    margin-left: 0;
+    margin-top: 0.3em;
+    font-weight: bold;
+}
+dd {
+    margin-left: 1.3em;
+}
+dd:dir(rtl) {
+    margin-left: 0;
+    margin-right: 1.3em;
+}
+
+/* Tables */
+table {
+    font-size: 80%;
+    margin: 3px 0;
+}
+table table { /* stop imbricated tables from getting smaller */
+    font-size: 100%;
+}
+td, th {
+    text-indent: 0;
+    padding: 3px;
+}
+th {
+    font-weight: bold;
+    text-align: center;
+    background-color: #DDD;
+}
+table caption {
+    text-indent: 0;
+    padding: 4px;
+    background-color: #EEE;
+}
+
+/* Monospace block elements */
+/* (note that xmp should ignore html, which won't be done, but pre is a better
+ * approximation than no pre */
+pre, xmp {
+    white-space: pre; /* has to be set in fb2def.h to work */
+    font-family: monospace;
+    text-align: left;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    /* background-color: #BFBFBF; */
+}
+
+/* Inline elements (all unknown elements default now to display: inline) */
+code, kbd, samp, tt     { font-family: monospace; }
+sup                     { font-size: 70%; vertical-align: super; }
+sub                     { font-size: 70%; vertical-align: sub; }
+small                   { font-size: 80%; }
+big                     { font-size: 130%; }
+b, strong               { font-weight: bold; }
+i, em, dfn, var, cite   { font-style: italic; }
+u, ins                  { text-decoration: underline; }
+del, s, strike          { text-decoration: line-through; }
+a                       { text-decoration: underline; color: gray; }
+
+/* Ruby support */
+ruby {
+    /* These will have no effect when ruby is reset to display: inline */
+    text-align: center;
+    text-indent: 0;
+}
+rb, rubyBox[T=rb] {
+    line-height: 1;
+}
+rt, rubyBox[T=rt] {
+    line-height: 1.6;
+    font-size: 42%;
+    font-variant-east-asian: ruby;
+    -cr-hint: text-selection-skip;
+}
+
+/* No support for the "quotes:" property, these will use default quote chars */
+q::before               { content: open-quote; }
+q::after                { content: close-quote; }
+
+nobr {
+    display: inline;
+    hyphens: none;
+    white-space: nowrap;
+}
+
+/* Element added for each empty line when rendering plain txt files */
+empty-line {
+    height: 1em;
+}
+
+/* Attributes that make some elements float or clear */
+br[clear=all i], br[clear=both i]   { clear: both; }
+br[clear=left i]     { clear: left; }
+br[clear=right i]    { clear: right; }
+img[align=left i]    { float: left; }
+img[align=right i]   { float: right; }
+table[align=left i]  { float: left; }
+table[align=right i] { float: right; }
+
+/* EPUB3 epub:type="pagebreak" may sometimes have the page number
+ * as content: hide it. (Usually, its content is empty and the
+ * page number is in a title= attribute.) */
+span[type=pagebreak] { display: none; }
+
+/* EPUB3: also hide any <nav hidden=""> made available in the book content,
+ * which could be a huge list of reference page numbers */
+nav[hidden] { display: none; }
+
+/* Old element or className based selectors involving display: that
+ * we need to support for older gDOMVersionRequested
+ * DO NOT MODIFY BELOW to not break past highlights */
+
+/* Images are now inline by default, and no more block with exceptions.
+ * Note that when 'block', lvrend.cpp displays the title="" content
+ * under the image */
+img {
+    -cr-ignore-if-dom-version-greater-or-equal: 20180528;
+    text-align: center;
+    text-indent: 0;
+    display: block;
+}
+sup img { -cr-ignore-if-dom-version-greater-or-equal: 20180528; display: inline; }
+sub img { -cr-ignore-if-dom-version-greater-or-equal: 20180528; display: inline; }
+a img   { -cr-ignore-if-dom-version-greater-or-equal: 20180528; display: inline; }
+p img   { -cr-ignore-if-dom-version-greater-or-equal: 20180528; display: inline; }
+p image { -cr-ignore-if-dom-version-greater-or-equal: 20180528; display: inline; } /* non html */
+
+/* With dom_version < 20180528, unknown elements defaulted to 'display: inherit'
+ * These ones here were explicitely set to inline (and some others not
+ * specified here were also set to inline in fb2def.h */
+b, strong, i, em, dfn, var, q, u, del, s, strike, small, big, sub, sup, acronym, tt, samp, kbd, code {
+    -cr-ignore-if-dom-version-greater-or-equal: 20180528;
+    display: inline;
+}
+
+form {
+    -cr-ignore-if-dom-version-greater-or-equal: 20180528;
+    display: none;
+}
+
+.title, .title1, .title2, .title3, .title4, .title5, .subtitle {
+    -cr-ignore-if-dom-version-greater-or-equal: 20180528;
+    display: block;
+}
+.fb2_info { -cr-ignore-if-dom-version-greater-or-equal: 20180528; display: block; }
+.code     { -cr-ignore-if-dom-version-greater-or-equal: 20180528; display: block; }
