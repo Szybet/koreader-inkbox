@@ -1,7 +1,8 @@
 local ffi = require("ffi")
 
+-- I removed grabber
+
 ffi.cdef[[
-static const int EVIOCGRAB = 1074021776;
 static const int EVIOCGREP = 2148025603;
 static const int EVIOCSREP = 1074283779;
 static const int EV_SYN = 0;

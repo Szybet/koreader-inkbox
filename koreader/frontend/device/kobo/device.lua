@@ -395,6 +395,13 @@ local KoboLuna = Kobo:extend{
     isMk7 = yes,
     canToggleChargingLED = yes,
     hasFrontlight = yes,
+        frontlight_settings = {
+        frontlight_white = "/sys/class/backlight/mxc_msp430.0/brightness",
+        frontlight_mixer = "/sys/class/backlight/lm3630a_led/color",
+        nl_min = 0,
+        nl_max = 100,
+        nl_inverted = false,
+    },
     touch_phoenix_protocol = true,
     display_dpi = 212,
     hasReliableMxcWaitFor = no, -- Board is similar to the Libra 2, but it's such an unpopular device that reports are scarce.

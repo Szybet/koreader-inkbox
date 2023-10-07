@@ -20,6 +20,9 @@ export EXT_FONT_DIR="/system-lib/qt/lib/fonts/"
 
 export LD_LIBRARY_PATH="/system-lib/lib/:/app-bin/koreader/libs/"
 
+# Prevent grab
+export KO_DONT_GRAB_INPUT="true"
+
 # check whether PLATFORM & PRODUCT have a value assigned by rcS
 if [ -z "${PRODUCT}" ]; then
     # shellcheck disable=SC2046

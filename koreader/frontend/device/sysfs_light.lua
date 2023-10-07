@@ -70,11 +70,7 @@ function SysfsLight:setNaturalBrightness(brightness, warmth)
     if self.frontlight_mixer then
         if set_brightness then
             -- Prefer the ioctl, as it's much lower latency.
-            if self.frontlight_ioctl then
-                self.frontlight_ioctl:setBrightness(brightness)
-            else
                 ffiUtil.writeToSysfs(brightness, self.frontlight_white)
-            end
         end
         -- The mixer might be using inverted values... (cold is nl_max, warm is nl_min)
         if set_warmth then

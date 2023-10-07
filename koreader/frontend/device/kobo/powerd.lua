@@ -159,9 +159,6 @@ function KoboPowerD:init()
             if self.device:hasNaturalLightMixer() then
                 local kobolight = require("ffi/kobolight")
                 local ok, light = pcall(kobolight.open)
-                if ok then
-                    self.device.frontlight_settings.frontlight_ioctl = light
-                end
             end
             self.fl = SysfsLight:new(self.device.frontlight_settings)
             self.fl_warmth = 0
@@ -193,6 +190,7 @@ function KoboPowerD:init()
             -- we jump through a couple of hoops in turnOnFrontlightHW to recover from the first quirky toggle...
         end
     end
+    self.fl = SysfsLight:new(self.device.frontlight_settings)
 end
 
 function KoboPowerD:saveSettings()
